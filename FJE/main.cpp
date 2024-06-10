@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 			iconFamily = argv[++i];
 		}
 	}
-	auto jsonContainer = readJson("../../../../"+jsonFile);
+	auto jsonContainer = readJson(jsonFile);
 	auto style = FactoryRegistrar::CreateProduct(styleName);
 	auto icon = (new JsonIconFactory())->createIcon(iconFamily);
 	
