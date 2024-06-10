@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 	
 	std::string jsonFile = "json1.json";
 	std::string styleName = "rectangle";
-	std::string iconFamily = "money";
+	std::string iconFamily = "";
 	for (int i = 1; i < argc; ++i) {
 		std::string arg = argv[i];
 		if (arg == "-f" && i + 1 < argc) {
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 			iconFamily = argv[++i];
 		}
 	}
-	auto jsonContainer = readJson(jsonFile);
+	auto jsonContainer = readJson("../../../../"+jsonFile);
 	auto style = FactoryRegistrar::CreateProduct(styleName);
 	auto icon = (new JsonIconFactory())->createIcon(iconFamily);
 	

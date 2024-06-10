@@ -28,7 +28,7 @@ class Icon : public Product {
 	std::string leafNode;
 public:
 	Icon(std::string type) {
-		if (type == "poker") {
+		if (type == "money") {
 			midNode = "$";
 			leafNode = "￥";
 		}
