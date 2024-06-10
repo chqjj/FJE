@@ -5,6 +5,7 @@
 #include<functional>
 #include"Product.h"
 
+
 class JsonFactory {
 public:
     virtual~JsonFactory() {}
@@ -12,22 +13,15 @@ public:
     virtual std::shared_ptr<Product> createIcon(std::string type) = 0;
 };
 
+// 注册工厂
 class FactoryRegistrar {
 public:
-	using CreateProductFunc = std::function<std::shared_ptr<Product>()>;
 	static std::unordered_map<std::string, JsonFactory*> factories;
 
 	static void Register(const std::string& type, JsonFactory* factoryFunc) {
 		factories[type] = factoryFunc;
 	}
 
-	/*static std::shared_ptr<Product> CreateProduct(const std::string& type) {
-		auto it = factories.find(type);
-		if (it != factories.end()) {
-			return it->second(); 
-		}
-		return nullptr;
-	}*/
     static JsonFactory* CreateFactory(const std::string& type) {
         auto it = factories.find(type);
         if (it != factories.end()) {
@@ -41,22 +35,16 @@ std::unordered_map<std::string, JsonFactory*> FactoryRegistrar::factories;
 
 
 
-/*class JsonIconFactory :public JsonFactory {
-public:
-	std::shared_ptr<Product> createIcon(std::string type) override {
-		return std::make_shared<Icon>(type);
-	}
-};*/
-
 class RectangleStyleFactory : public JsonFactory {
 public:
+    // 单例
     static RectangleStyleFactory* Instance() {
-        //static RectangleStyleFactory* factory;
+
         return new RectangleStyleFactory();
     }
 
     RectangleStyleFactory() {
-        //FactoryRegistrar::Register("rectangle", [this]() { return this->CreateRectangleStyle(); });
+        
     }
 
     std::shared_ptr<Product> createStyle(const std::string& style) override {
@@ -74,13 +62,13 @@ private:
 
 class TreeStyleFactory : public JsonFactory {
 public:
+    // 单例
    static TreeStyleFactory* Instance() {
-        
         return new TreeStyleFactory();
-    }
+   }
 
     TreeStyleFactory() {
-        //FactoryRegistrar::Register("tree", [this]() { return this->CreateTreeStyle(); });
+       
     }
 
     std::shared_ptr<Product> createStyle(const std::string& style) override {
