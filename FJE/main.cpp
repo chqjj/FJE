@@ -5,8 +5,9 @@ class FactoryRegistrarInitializer {
 public:
 	FactoryRegistrarInitializer() {
 		// 注册所有工厂  
-		RectangleStyleFactory::Instance(); 
-		TreeStyleFactory::Instance();     
+		FactoryRegistrar::Register("rectangle", RectangleStyleFactory::Instance());
+		FactoryRegistrar::Register("tree", TreeStyleFactory::Instance());
+		     
 	}
 };
 
@@ -32,9 +33,11 @@ int main(int argc, char* argv[]) {
 			iconFamily = argv[++i];
 		}
 	}
-	auto jsonContainer = readJson(jsonFile);
-	auto style = FactoryRegistrar::CreateProduct(styleName);
-	auto icon = (new JsonIconFactory())->createIcon(iconFamily);
+	auto jsonContainer = readJson("../../../../"+jsonFile);
+	JsonFactory* factory = FactoryRegistrar::CreateFactory(styleName);
+	//std::cout<< FactoryRegistrar::CreateFactory(styleName);
+	auto style = factory->createStyle(styleName);
+	auto icon = factory->createIcon(iconFamily);
 	
 	jsonContainer.print(std::dynamic_pointer_cast<Style>(style), std::dynamic_pointer_cast<Icon>(icon));
 
