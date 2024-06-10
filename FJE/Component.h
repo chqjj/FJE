@@ -31,7 +31,7 @@ public:
     int getDepth() { return depth; }
     void print(std::shared_ptr<Style> style, std::shared_ptr<Icon> icon, bool top, bool bottom, std::vector<bool> has_next) override{
         std::string result = style->getPre(top, bottom, has_next);
-        value += icon->getIcon(is_leaf);
+        value = icon->getIcon(is_leaf)+value;
         auto suff = style->getSuff(result, value);
         result += value + suff;
         std::cout << result << std::endl;
