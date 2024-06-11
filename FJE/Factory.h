@@ -5,7 +5,7 @@
 #include<functional>
 #include"Product.h"
 
-
+// ³éÏó¹¤³§
 class JsonFactory {
 public:
     virtual~JsonFactory() {}

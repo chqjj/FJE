@@ -6,7 +6,7 @@
 #include<vector>
 #include<iostream>
 
-
+// 抽象产品
 class Style {
 private:
 
@@ -123,6 +123,7 @@ public:
 
 };
 
+// 产品组合
 class Product {
 public:
 	std::shared_ptr<Style> style;
