@@ -10,7 +10,7 @@
 class JsonComponent {
 public:
     virtual ~JsonComponent() {}
-    virtual void print(std::shared_ptr<Style> style, std::shared_ptr<Icon> icon, bool bottom, bool top, std::vector<bool> has_next) = 0;
+    virtual void print(Product* product, bool bottom, bool top, std::vector<bool> has_next) = 0;
     
 };
 
@@ -29,10 +29,10 @@ public:
 
     }
     int getDepth() { return depth; }
-    void print(std::shared_ptr<Style> style, std::shared_ptr<Icon> icon, bool top, bool bottom, std::vector<bool> has_next) override{
-        std::string result = style->getPre(top, bottom, has_next);
-        value = icon->getIcon(is_leaf)+value;
-        auto suff = style->getSuff(result, value);
+    void print(Product* product, bool top, bool bottom, std::vector<bool> has_next) override{
+        std::string result = product->style->getPre(top, bottom, has_next);
+        value = product->icon->getIcon(is_leaf)+value;
+        auto suff = product->style->getSuff(result, value);
         result += value + suff;
         std::cout << result << std::endl;
     }
@@ -42,6 +42,7 @@ public:
 class JsonContainer : public JsonComponent {
 private:
     std::vector<std::shared_ptr<JsonNode>> children;
+    
     // 判断节点有没有下一个兄弟节点，并找到父节点
     void getNext(std::stack<std::pair<int, int>>& depth_stack, std::vector<bool>& depth_list, std::vector<int>& parent)
     {
@@ -84,7 +85,7 @@ public:
         children.push_back(child);
     }
     
-    void print(std::shared_ptr<Style> style, std::shared_ptr<Icon> icon, bool top = false,
+    void print(Product* product, bool top = false,
         bool bottom = false, std::vector<bool> has_next=std::vector<bool>()) override {
         if (children.empty()) return;
         // 深度列表，用来判断有没有下一个兄弟节点
@@ -101,7 +102,7 @@ public:
             getCurDepth(i, parent, curDepth, depth_list);
             bool top = i == 0 ? true : false;
             bool bottom = i == (children.size() - 1) ? true : false;
-            children[i]->print(style, icon, top, bottom, curDepth);
+            children[i]->print(product, top, bottom, curDepth);
 
             
         }

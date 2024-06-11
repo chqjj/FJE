@@ -9,8 +9,8 @@
 class JsonFactory {
 public:
     virtual~JsonFactory() {}
-    virtual std::shared_ptr<Product> createStyle(const std::string& style) = 0;
-    virtual std::shared_ptr<Product> createIcon(std::string type) = 0;
+    virtual std::shared_ptr<Style> createStyle(const std::string& style) = 0;
+    virtual std::shared_ptr<Icon> createIcon(std::string type) = 0;
 };
 
 // ×¢²á¹¤³§
@@ -47,15 +47,15 @@ public:
         
     }
 
-    std::shared_ptr<Product> createStyle(const std::string& style) override {
+    std::shared_ptr<Style> createStyle(const std::string& style) override {
         return this->CreateRectangleStyle();
     }
-    std::shared_ptr<Product> createIcon(std::string type) override {
+    std::shared_ptr<Icon> createIcon(std::string type) override {
         return std::make_shared<Icon>(type);
     }
 
 private:
-    std::shared_ptr<Product> CreateRectangleStyle() const {
+    std::shared_ptr<Style> CreateRectangleStyle() const {
         return std::make_shared<RectangleStyle>();
     }
 };
@@ -71,15 +71,15 @@ public:
        
     }
 
-    std::shared_ptr<Product> createStyle(const std::string& style) override {
+    std::shared_ptr<Style> createStyle(const std::string& style) override {
         return this->CreateTreeStyle();
     }
-    std::shared_ptr<Product> createIcon(std::string type) override {
+    std::shared_ptr<Icon> createIcon(std::string type) override {
         return std::make_shared<Icon>(type);
     }
 
 private:
-    std::shared_ptr<Product> CreateTreeStyle() const {
+    std::shared_ptr<Style> CreateTreeStyle() const {
         return std::make_shared<TreeStyle>();
     }
 };

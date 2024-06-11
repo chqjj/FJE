@@ -6,13 +6,8 @@
 #include<vector>
 #include<iostream>
 
-class Product {
-	std::string type;
-public:
-	virtual ~Product() {};
-};
 
-class Style :public Product {
+class Style {
 private:
 
 public:
@@ -22,7 +17,7 @@ public:
 	
 };
 
-class Icon : public Product {
+class Icon {
 	
 	std::string midNode;
 	std::string leafNode;
@@ -126,6 +121,12 @@ public:
 		return "";
 	}
 
+};
+
+class Product {
+public:
+	std::shared_ptr<Style> style;
+	std::shared_ptr<Icon> icon;
 };
 
 

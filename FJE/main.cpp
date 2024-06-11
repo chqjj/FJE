@@ -33,12 +33,11 @@ int main(int argc, char* argv[]) {
 			iconFamily = argv[++i];
 		}
 	}
-	auto jsonContainer = readJson("../../../../"+jsonFile);
-	JsonFactory* factory = FactoryRegistrar::CreateFactory(styleName);
-	//std::cout<< FactoryRegistrar::CreateFactory(styleName);
-	auto style = factory->createStyle(styleName);
-	auto icon = factory->createIcon(iconFamily);
+	auto builder = JsonBuilder();
+	auto jsonContainer = builder.buildJson("../../../../"+jsonFile);
+	auto product = builder.set(styleName, iconFamily);
 	
-	jsonContainer.print(std::dynamic_pointer_cast<Style>(style), std::dynamic_pointer_cast<Icon>(icon));
+	
+	jsonContainer.print(product);
 
 }
