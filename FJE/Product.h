@@ -43,8 +43,6 @@ public:
 };
 
 class RectangleStyle : public Style {
-	std::vector<std::string> pre;
-	std::vector<std::string> post;
 	std::string putSpace(int count, std::string suffix) {
 		return suffix.append(count, ' ');
 	}
@@ -106,10 +104,7 @@ public:
 
 class TreeStyle : public Style {
 private:
-	std::vector<std::string> pre;
-	std::vector<std::string> post;
 	
-
 public:
 	
 	std::string getPre(bool top, bool bottom, std::vector<bool> has_next) {

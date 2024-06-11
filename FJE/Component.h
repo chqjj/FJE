@@ -42,11 +42,6 @@ public:
 class JsonContainer : public JsonComponent {
 private:
     std::vector<std::shared_ptr<JsonNode>> children;
-    
-public:
-    void addChild(const std::shared_ptr<JsonNode>& child) {
-        children.push_back(child);
-    }
     // 判断节点有没有下一个兄弟节点，并找到父节点
     void getNext(std::stack<std::pair<int, int>>& depth_stack, std::vector<bool>& depth_list, std::vector<int>& parent)
     {
@@ -74,6 +69,21 @@ public:
             }
         }
     }
+    void getCurDepth(const size_t& i, std::vector<int>& parent, std::vector<bool>& curDepth, std::vector<bool>& depth_list)
+    {
+        int index = i;
+        while (parent[index] != -1) {
+            curDepth.insert(curDepth.begin(), depth_list[index]);
+            index = parent[index];
+        }
+        curDepth.insert(curDepth.begin(), depth_list[index]);
+    }
+    
+public:
+    void addChild(const std::shared_ptr<JsonNode>& child) {
+        children.push_back(child);
+    }
+    
     void print(std::shared_ptr<Style> style, std::shared_ptr<Icon> icon, bool top = false,
         bool bottom = false, std::vector<bool> has_next=std::vector<bool>()) override {
         if (children.empty()) return;
@@ -96,15 +106,7 @@ public:
             
         }
     }
-    void getCurDepth(const size_t& i, std::vector<int>& parent, std::vector<bool>& curDepth, std::vector<bool>& depth_list)
-    {
-        int index = i;
-        while (parent[index] != -1) {
-            curDepth.insert(curDepth.begin(), depth_list[index]);
-            index = parent[index];
-        }
-        curDepth.insert(curDepth.begin(), depth_list[index]);
-    }
+    
 };
 
 
