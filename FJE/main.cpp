@@ -1,10 +1,10 @@
 
 #include"json.h"
-// ÓÃÓÚ×¢²áµÄ¸¨ÖúÀà  
+// ç”¨äºæ³¨å†Œçš„è¾…åŠ©ç±»  
 class FactoryRegistrarInitializer {
 public:
 	FactoryRegistrarInitializer() {
-		// ×¢²áËùÓĞ¹¤³§  
+		// æ³¨å†Œæ‰€æœ‰å·¥å‚  
 		FactoryRegistrar::Register("rectangle", RectangleStyleFactory::Instance());
 		FactoryRegistrar::Register("tree", TreeStyleFactory::Instance());
 		     
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	auto builder = JsonBuilder();
-	auto jsonContainer = builder.buildJson("../../../../"+jsonFile);
+	auto jsonContainer = builder.buildJson(jsonFile);
 	auto product = builder.set(styleName, iconFamily);
 	
 	
